@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>New Site</title>
+    <meta name="description" content="A simple one-pager." />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav class="nav">
+        <a class="brand" href="#top" aria-label="Home">My Site</a>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+          <a href="#cta">CTA</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero container">
+        <h1>Make a clean one-pager fast</h1>
+        <p class="subhead">
+          Edit only <code>index.html</code>, <code>style.css</code>, <code>scripts.js</code>, and optional assets in
+          <code>/assets</code>.
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="#cta">Get started</a>
+          <a class="btn" href="#features">See features</a>
+        </div>
+      </section>
+
+      <section id="features" class="container section">
+        <h2>Features</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Responsive</h3>
+            <p>Works on mobile and desktop.</p>
+          </article>
+          <article class="card">
+            <h3>Fast</h3>
+            <p>No build step, no dependencies.</p>
+          </article>
+          <article class="card">
+            <h3>Deployable</h3>
+            <p>Ready for CDN hosting.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="container section">
+        <h2>About</h2>
+        <p>
+          This is a static template designed for AI-driven iteration with strong guardrails.
+        </p>
+      </section>
+
+      <section id="cta" class="container section cta">
+        <h2>Call to action</h2>
+        <p>Put your pitch here.</p>
+        <button class="btn primary" id="ctaButton" type="button">Click me</button>
+        <p class="small" id="ctaResult" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <small>© <span id="year"></span> My Site</small>
+    </footer>
+
+    <script src="./scripts.js" defer></script>
+  </body>
+</html>
