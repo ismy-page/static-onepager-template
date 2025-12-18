@@ -1,0 +1,47 @@
+name: deploy-pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Optional: wait for your validate-static workflow to be green
+      # (Branch protection should already enforce it.)
+      - name: Ensure required files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f style.css
+          test -f scripts.js
+          test -f assets/README.md
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # Upload the *repo root* as the Pages artifact.
+      # This will include index.html, style.css, scripts.js, and assets/
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
