@@ -21,17 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Optional: wait for your validate-static workflow to be green
-      # (Branch protection should already enforce it.)
-      - name: Ensure required files exist
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f index.html
-          test -f style.css
-          test -f scripts.js
-          test -f assets/README.md
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
