@@ -1,8 +1,8 @@
 name: deploy-pages
 
 on:
-  push:
-    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
@@ -10,12 +10,14 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      COMMIT_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
     steps:
       - name: Checkout
@@ -24,12 +26,19 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      # Upload the *repo root* as the Pages artifact.
-      # This will include index.html, style.css, scripts.js, and assets/
+      - name: Prepare commit-scoped artifact
+        run: |
+          set -euo pipefail
+          OUTPUT_DIR="dist/${COMMIT_ID}"
+          mkdir -p "$OUTPUT_DIR"
+
+          cp index.html style.css scripts.js "$OUTPUT_DIR"/
+          cp -a assets "$OUTPUT_DIR"/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
