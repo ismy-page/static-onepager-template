@@ -36,7 +36,7 @@ jobs:
           rm -rf "$OUTPUT_DIR"
           mkdir -p "$OUTPUT_DIR"
 
-          cp index.html style.css scripts.js "$OUTPUT_DIR"/
+          cp index.html style.css script.js "$OUTPUT_DIR"/
           cp -a assets "$OUTPUT_DIR"/
 
       - name: Upload Pages artifact

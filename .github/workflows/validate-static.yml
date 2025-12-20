@@ -43,9 +43,9 @@ jobs:
           # Allowed paths:
           # - index.html
           # - style.css
-          # - scripts.js
+          # - script.js
           # - assets/** (static assets only; validated separately)
-          ALLOW_REGEX='^(index\.html|style\.css|scripts\.js|assets\/.+)$'
+          ALLOW_REGEX='^(index\.html|style\.css|script\.js|assets\/.+)$'
 
           # Block any edits under .github/ to prevent workflow tampering
           if echo "$CHANGED" | grep -E '^\.github/' >/dev/null 2>&1; then
@@ -90,7 +90,7 @@ jobs:
 
           check_size index.html "$max_html"
           check_size style.css "$max_css"
-          check_size scripts.js "$max_js"
+          check_size script.js "$max_js"
 
           # Ensure assets folder marker exists (so folder shows up even if empty)
           if [ ! -f "assets/README.md" ]; then
@@ -112,11 +112,11 @@ jobs:
           // Must reference local CSS + JS
           const hasCss = /<link[^>]+href=["']\.\/style\.css["'][^>]*>/i.test(html)
                       || /<link[^>]+href=["']style\.css["'][^>]*>/i.test(html);
-          const hasJs  = /<script[^>]+src=["']\.\/scripts\.js["'][^>]*>/i.test(html)
-                      || /<script[^>]+src=["']scripts\.js["'][^>]*>/i.test(html);
+          const hasJs  = /<script[^>]+src=["']\.\/script\.js["'][^>]*>/i.test(html)
+                      || /<script[^>]+src=["']script\.js["'][^>]*>/i.test(html);
 
           if (!hasCss) throw new Error("Missing <link> to style.css");
-          if (!hasJs)  throw new Error("Missing <script> to scripts.js");
+          if (!hasJs)  throw new Error("Missing <script> to script.js");
 
           // Disallow remote scripts by default (tighten publishing risk)
           const remoteScript = /<script[^>]+src=["']https?:\/\//i.test(html);
@@ -129,8 +129,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node --check scripts.js
-          echo "✅ scripts.js parses."
+          node --check script.js
+          echo "✅ script.js parses."
 
       - name: Validate assets folder contents
         shell: bash
